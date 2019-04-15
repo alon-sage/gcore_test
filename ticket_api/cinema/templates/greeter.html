@@ -1,0 +1,22 @@
+{% extends 'rest_framework/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load rest_framework %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li class="active"><a href="/">/</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="region" aria-label="{% trans "request form" %}">
+        <h1>Welcome!</h1>
+        Now you are able:
+        <ul>
+            <li>Register new user.</li>
+            <li>Login as existing one.</li>
+            <li>Play with API as authenticated or anonymous user.</li>
+        </ul>
+    </div>
+{% endblock %}

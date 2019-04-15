@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pyhamcrest = "*"
+
+[packages]
+django = "*"
+django-filter = "*"
+django-celery-beat = "*"
+django-registration = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+markdown = "*"
+celery = "*"
+gunicorn = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
+whitenoise = "*"
+get-docker-secret = "*"
+
+[requires]
+python_version = "3.6"

@@ -1,0 +1,85 @@
+{% extends "rest_framework/base.html" %}
+{% load rest_framework %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    <div class="row-fluid" style="padding-top: 70px">
+      <div class="well" style="width: 320px; margin-left: auto; margin-right: auto">
+        <div class="row-fluid">
+          <div>
+            <h3 style="margin: 0 0 20px;">Ticket API Registration</h3>
+          </div>
+        </div><!-- /row fluid -->
+
+        <div class="row-fluid">
+          <div>
+            <form action="{% url 'django_registration_register' %}" role="form" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}" />
+
+              <div id="div_id_email" class="clearfix control-group {% if form.email.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_email">{{ form.email.label }}:</label>
+                  <input type="text" name="email" maxlength="100"
+                      autocapitalize="off"
+                      autocorrect="off" class="form-control textinput textInput"
+                      id="id_email" required autofocus
+                      {% if form.email.value %}value="{{ form.email.value }}"{% endif %}>
+                  {% if form.email.errors %}
+                    <p class="text-error">
+                      {{ form.email.errors|striptags }}
+                    </p>
+                  {% endif %}
+                  <small id="help_id_email" class="form-text text-muted">
+                      {{ form.email.help_text }}
+                  </small>
+                </div>
+              </div>
+
+              <div id="div_id_password1" class="clearfix control-group {% if form.password1.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_password1">{{ form.password1.label }}:</label>
+                  <input type="password" name="password1" maxlength="100" autocapitalize="off" autocorrect="off" class="form-control textinput textInput" id="id_password1" required>
+                  {% if form.password1.errors %}
+                    <p class="text-error">
+                      {{ form.password1.errors|striptags }}
+                    </p>
+                  {% endif %}
+                  <small id="help_id_password1" class="form-text text-muted">
+                      {{ form.password1.help_text }}
+                  </small>
+                </div>
+              </div>
+
+              <div id="div_id_password2" class="clearfix control-group {% if form.password2.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_password2">{{ form.password2.label }}:</label>
+                  <input type="password" name="password2" maxlength="100" autocapitalize="off" autocorrect="off" class="form-control textinput textInput" id="id_password2" required>
+                  {% if form.password2.errors %}
+                    <p class="text-error">
+                      {{ form.password2.errors|striptags }}
+                    </p>
+                  {% endif %}
+                  <small id="help_id_password2" class="form-text text-muted">
+                      {{ form.password2.help_text }}
+                  </small>
+                </div>
+              </div>
+
+
+              {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                  <div class="well well-small text-error" style="border: none">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+
+              <div class="form-actions-no-box">
+                <input type="submit" name="submit" value="Register" class="btn btn-primary form-control" id="submit-id-submit">
+              </div>
+            </form>
+          </div>
+        </div><!-- /.row-fluid -->
+      </div><!--/.well-->
+    </div><!-- /.row-fluid -->
+{% endblock %}

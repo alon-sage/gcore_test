@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq
+    restart: always
+
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    environment:
+      DJANGO_DEBUG: "false"
+      DJANGO_ALLOWED_HOSTS: "localhost"
+      DJANGO_DATABASE_URL: "postgres://postgres@postgres/postgres"
+      CELERY_BROKER_URL: "amqp://guest:guest@rabbitmq:5672//"
+      GUNICORN_CMD_ARGS: "--bind=0.0.0.0:80 --workers=4"
+    ports:
+      - 8080:80
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  worker:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    command: [
+      "celery",
+      "-A", "ticket_api",
+      "worker",
+      "-B",
+      "-l", "info",
+      "--scheduler", "django_celery_beat.schedulers:DatabaseScheduler"
+    ]
+    environment:
+      DJANGO_DEBUG: "false"
+      DJANGO_ALLOWED_HOSTS: "localhost"
+      DJANGO_DATABASE_URL: "postgres://postgres@postgres/postgres"
+      CELERY_BROKER_URL: "amqp://guest:guest@rabbitmq:5672//"
+      GUNICORN_CMD_ARGS: "--bind=0.0.0.0:80"
+    depends_on:
+      - postgres
+      - rabbitmq
