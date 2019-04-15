@@ -30,6 +30,8 @@ Apply migrations to DB:
 docker-compose exec backend ./manage.py migrate
 ```
 
+Note: Cinema halls are predefined in migration.
+
 Create superuser:
 
 ```bash
@@ -119,9 +121,7 @@ curl -XGET \
 ```
 
 
-### API Documentation
-
-#### Current user information
+### Current user information
 
 ```bash
 curl -XGET \
@@ -129,3 +129,35 @@ curl -XGET \
     -H 'Content-Type: application/json' \
     'http://localhost:8080/api/user-info/'
 ```
+**Response:**
+
+Anonymous user
+
+```json
+{
+    "is_anonymous": true,
+    "is_authenticated": false
+}
+```
+
+Authenticated user
+
+```json
+{
+    "email": "admin@example.com",
+    "last_login": "2019-04-15T23:11:37.793284+03:00",
+    "date_joined": "2019-04-15T19:51:35.556781+03:00",
+    "is_anonymous": false,
+    "is_authenticated": true
+}
+```
+
+### Users
+
+### Halls
+
+### Movies
+
+### Movie sessions
+
+### Tickets

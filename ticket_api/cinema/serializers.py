@@ -1,4 +1,5 @@
 from rest_framework.compat import MinValueValidator
+from rest_framework.fields import BooleanField
 from rest_framework.fields import IntegerField
 from rest_framework.relations import SlugRelatedField
 from rest_framework.serializers import HyperlinkedModelSerializer
@@ -20,6 +21,11 @@ class UserInfoSerializer(ModelSerializer):
             'email', 'last_login', 'date_joined',
             'is_anonymous', 'is_authenticated',
         )
+
+
+class AnonymousUserInfoSerializer(Serializer):
+    is_anonymous = BooleanField()
+    is_authenticated = BooleanField()
 
 
 class UserAdminSerializer(ModelSerializer):

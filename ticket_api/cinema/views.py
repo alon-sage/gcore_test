@@ -5,7 +5,6 @@ from rest_framework.decorators import detail_route
 from rest_framework.permissions import IsAdminUser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
 from rest_framework.status import HTTP_204_NO_CONTENT
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.viewsets import ModelViewSet
@@ -29,6 +28,7 @@ from ticket_api.cinema.models import MovieSession
 from ticket_api.cinema.models import Ticket
 from ticket_api.cinema.models import User
 from ticket_api.cinema.permissions import ReadOnly
+from ticket_api.cinema.serializers import AnonymousUserInfoSerializer
 from ticket_api.cinema.serializers import BookingForCustomerSerializer
 from ticket_api.cinema.serializers import BookingSerializer
 from ticket_api.cinema.serializers import HallAdminSerializer
@@ -46,7 +46,10 @@ from ticket_api.cinema.serializers import UserInfoSerializer
 
 class UserInfoViewSet(ViewSet):
     def list(self, request):
-        serializer = UserInfoSerializer(request.user)
+        if request.user.is_anonymous:
+            serializer = AnonymousUserInfoSerializer(request.user)
+        else:
+            serializer = UserInfoSerializer(request.user)
         return Response(serializer.data)
 
 
