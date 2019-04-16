@@ -14,7 +14,7 @@ Run tests:
 pipenv run ./manage.py test
 ```
 
-## Run dev stand in Docker
+## Run prod-like stand in Docker
 
 Start containers (_-d_ is for background run):
 
@@ -151,13 +151,3 @@ Authenticated user
     "is_authenticated": true
 }
 ```
-
-### Users
-
-### Halls
-
-### Movies
-
-### Movie sessions
-
-### Tickets
