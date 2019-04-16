@@ -128,9 +128,9 @@ class MovieSessionViewSet(ModelViewSet):
             return MovieSession.objects.filter(query)
 
     def get_serializer_class(self):
-        if self.action == 'book':
+        if self.action == 'book_ticket':
             return BookingSerializer
-        elif self.action == 'book_for_customer':
+        elif self.action == 'book_ticket_for_customer':
             return BookingForCustomerSerializer
         elif self.request.user.is_staff:
             return MovieSessionAdminSerializer
@@ -167,7 +167,7 @@ class MovieSessionViewSet(ModelViewSet):
         return Response(serializer.data)
 
     @detail_route(['POST'], permission_classes=(IsAuthenticated,))
-    def book(self, request, pk=None):
+    def book_ticket(self, request, pk=None):
         movie_session: MovieSession = self.get_object()
         in_serializer = BookingSerializer(
             data=request.data,
@@ -199,7 +199,7 @@ class MovieSessionViewSet(ModelViewSet):
             return Response(in_serializer.errors, HTTP_400_BAD_REQUEST)
 
     @detail_route(['POST'], permission_classes=(IsAuthenticated & IsAdminUser,))
-    def book_for_customer(self, request, pk=None):
+    def book_ticket_for_customer(self, request, pk=None):
         movie_session: MovieSession = self.get_object()
 
         serializer = BookingForCustomerSerializer(

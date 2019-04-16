@@ -235,7 +235,7 @@ class UserAPITestCase(TicketSetupMixin, APITestCase):
 
     def test_success_booking(self):
         response = self.client.post(
-            self.movie_session_100_90_url + 'book/',
+            self.movie_session_100_90_url + 'book_ticket/',
             data={
                 'row_number': 3,
                 'seat_number': 3,
@@ -269,7 +269,7 @@ class UserAPITestCase(TicketSetupMixin, APITestCase):
 
     def test_prevents_second_booking_on_same_seat(self):
         self.client.post(
-            self.movie_session_100_90_url + 'book/',
+            self.movie_session_100_90_url + 'book_ticket/',
             data={
                 'row_number': 3,
                 'seat_number': 3,
@@ -277,7 +277,7 @@ class UserAPITestCase(TicketSetupMixin, APITestCase):
         )
 
         response = self.client.post(
-            self.movie_session_100_90_url + 'book/',
+            self.movie_session_100_90_url + 'book_ticket/',
             data={
                 'row_number': 3,
                 'seat_number': 3,
@@ -290,7 +290,7 @@ class UserAPITestCase(TicketSetupMixin, APITestCase):
 
     def test_prevents_booking_for_customer(self):
         response = self.client.post(
-            self.movie_session_100_90_url + 'book_for_customer/',
+            self.movie_session_100_90_url + 'book_ticket_for_customer/',
             data={
                 'customer': self.user_1.email,
                 'row_number': 1,

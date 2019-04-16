@@ -207,7 +207,7 @@ class AnonymousAPITestCase(TicketSetupMixin, APITestCase):
 
     def test_prevents_booking_for_itself(self):
         response = self.client.post(
-            self.movie_session_100_90_url + 'book/',
+            self.movie_session_100_90_url + 'book_ticket/',
             data={
                 'row_number': 1,
                 'seat_number': 1,
@@ -217,7 +217,7 @@ class AnonymousAPITestCase(TicketSetupMixin, APITestCase):
 
     def test_prevents_booking_for_customer(self):
         response = self.client.post(
-            self.movie_session_100_90_url + 'book_for_customer/',
+            self.movie_session_100_90_url + 'book_ticket_for_customer/',
             data={
                 'customer': self.user_1.email,
                 'row_number': 1,
